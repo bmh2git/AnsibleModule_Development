@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: False
+  tasks:
+    - name: hello world
+      hello_world:
+      register: hw
+    - name: dump
+      debug: var=hw

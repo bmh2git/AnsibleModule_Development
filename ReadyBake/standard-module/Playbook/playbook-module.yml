@@ -1,0 +1,9 @@
+---
+- hosts: all
+  gather_facts: false
+  tasks:
+    - name: execute patch retrieval
+      fetch_patch_info:
+      register: fpi
+    - name: report
+      debug: var=fpi

@@ -1,0 +1,14 @@
+---
+- hosts: all
+  gather_facts: true 
+  tasks:
+    - name: execute patch retrieval
+      fetch_patch_info:
+      register: fpi
+    - name: report
+      debug: var=fpi
+    - name: audit patch levels
+      delegate_to: 127.0.0.1 
+      audit_patch_info:
+        data: "{{ fpi.msg }}"
+        host: "{{ inventory_hostname }}"

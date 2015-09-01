@@ -1,0 +1,12 @@
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure( VAGRANTFILE_API_VERSION   ) do |config|
+  config.vm.define "a1_sys" do | a1_sys |
+    a1_sys.vm.box = "ubuntu/trusty64"
+    a1_sys.vm.hostname = "a1-sys"
+  end
+  config.vm.define "a2_sys" do | a2_sys |
+    a2_sys.vm.box = "ubuntu/trusty64"
+    a2_sys.vm.hostname = "a2-sys"
+  end
+end

@@ -1,0 +1,32 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\fs24 \cf0 Ansible Modules Outline\
+\
+What are Modules\
+A Module is a unit of functionality that Ansible makes available to a playbook as a task.\
+There are basically three tiers of modules:\
+- Core : these modules are in the core Ansible code base.  These are considered fundamental and mature.\
+- Extra : these modules are in the Ansible code base.  These modules are considered value-add and/or up-and-coming.\
+- User : these modules are not part of the Ansible code base rather these are custom modules that are written external to the product to add functionality.\
+\
+Modules can be written in just about any language.  Python is the preferred language of Ansible so there is some helper code which makes writing modules in Python very simple.  \
+We will review examples of modules written in Shell and in Python.\
+\
+\
+Why develop a custom module:\
+- Task you want to perform is too complex for the existing command or shell modules.\
+- There is no existing module that does what you want to do.\
+- You want to interact with some third party service over a REST API.\
+-  You need to override functionality of an existing Module.\
+\
+How to Dev:\
+- Python\
+\
+\
+Notes/Gotchas::\
+* Ansible uses shapes when logging onto systems.  You must have it installed.  You can find a copy here: \
+}
