@@ -1,5 +1,6 @@
-# A Short Guide To Developing Ansible Modules
 
+![ansible image](https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.socallinuxexpo.org%2Fscale12x-supporting%2Fdefault%2Ffiles%2Flogos%2FAnsibleLogo_transparent_web.png&f=1 =10x10)
+# A Short Guide To Developing Ansible Modules
 
 ## Setting up a sandbox
 This KB includes a Vagrant file to start up a simple Ubuntu system.  The commands in
@@ -119,7 +120,7 @@ Our playbook will now read like:
 	    - name: execute patch retrieval
 	      script: scripts/fetch_patch_info.sh
 				register: fpi
-			- debug: var=fpi
+			- debug: var=fpi.stdout_lines
 
 Let's run our changes . . .
 	
@@ -158,15 +159,21 @@ But now let's make our script a first class action by making it a module.
 We will continue to use our Sandbox system we set up earlier in this KB.
 
 ## Module development
-Take a look at the module that has been implemented to deliver the same functionality as the shell command and the shell script from ealier.  Bascially it's just a python program that will open the dpkg.log file and return it's contents.
+Take a look at the module that has been implemented to deliver the same functionality as the shell command and the shell script from ealier.  The module can be found in:
+
+	>$KB_HOME/standard-module/Playbook/library/fetch_patch_info.py
+	
+  Bascially it's just a python program that will open the dpkg.log file and return it's contents.  
+  
 Some key elements of the module implementation are:
+
 - The script does the import of the Ansible dependencies at the bottom of the program so as not to through off the line number reference which we might get in an error message:
 	
-	from ansible.module_utils.basic import *
-	if __name__ == "__main__":
-	    main()
+		from ansible.module_utils.basic import *
+		if __name__ == "__main__":
+	    	main()
 
-- We leverage the AnsibleModule utility.  This utility is provided by Ansible and all modules must use it if they are to be considered for adoption into Ansible Extras or Core:
+- We leverage the AnsibleModule utility class.  This utility is provided by Ansible and all modules must use it if they are to be considered for adoption into Ansible Extras or Core:
 	
 		module = AnsibleModule(
 	        argument_spec = dict(filter=dict(required=False)),
@@ -182,7 +189,7 @@ Some key elements of the module implementation are:
 				module.fail_json(msg="Failed")
 
 
-Once our module is complete we will save it in a local `library` subdirectory as `fetch_patch_info.py`.  There are many conventional locations to store your modules and many conventions to define reference to them.  The easiest for our exercise here is to simply create a local `library` directory.  Ansible will see this directory and add it to the module-path is already knows about.
+Once our module is complete we will save it in a local `library` subdirectory as `fetch_patch_info.py`.  There are many conventional locations to store your modules and many conventions to define a reference to them.  The easiest for our exercise here is to simply create a local `library` directory.  Ansible will see this directory and add it to the module-path it already knows about.
 
 ## Testing our module
 Ansible provides a testing tool that will help us determine if we any issues with our implementation.  The testing tool helps to exercise the AnsibleModule utility that we are expected to use in our Modules.
@@ -194,7 +201,7 @@ In particular we are interested in using the `test-module` tool to test our fetc
 But before we can use the tool we will need to update our PYTHONPATH with the a reference to the ansbile/lib directory of the project we just cloned.
 For example:
 
-	export PYTHONPATY='/path/to/clone/ansible/lib:$PYTHONPATH'
+	export PYTHONPATH='/path/to/clone/ansible/lib:$PYTHONPATH'
 
 
 We are going to execute our test at the parent level of the ansible project we just cloned and below is the syntax to execute a test:
@@ -247,7 +254,7 @@ and our output is:
 	127.0.0.1                  : ok=2    changed=1    unreachable=0    failed=0
 
 ## Making Modules Work Together
-Up to this point this point we have taken our simple command line action, make it into a script, which we then refactored into a Module.  So now let's get some value (relative to this KB and not so much to a business :) ) from our new module by using it to report the current patch levels of all the systems in our inventory.  We already have a module that will fetch patch information from Ubuntu systems so now we just need to send that data to our audit/tracking system.
+Up to this point this point we have taken our simple command line action, made it into a script, which we then refactored into a Module.  So now let's get some value (relative to this KB and not so much to a business :) ) from our new module by using it to report the current patch levels of all the systems in our inventory.  We already have a module that will fetch patch information from Ubuntu systems so now we just need to send that data to our audit/tracking system.
 The contents of this KB contain a rest-service which will function as our audit system.  We will need to develop an additional module that will receive the output from our fetch\_patch\_info module and pass it along to our audit system.
 
 First let's look at how our playbook will change:

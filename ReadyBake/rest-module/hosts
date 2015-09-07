@@ -1,2 +1,2 @@
-a1_sys ansible_ssh_port=2200 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant 
-a2_sys ansible_ssh_port=2201 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant 
+a1_sys ansible_ssh_port=2222 ansible_ssh_host=127.0.0.1 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant 
+a2_sys ansible_ssh_port=2200 ansible_ssh_host=127.0.0.1 ansible_ssh_user=vagrant ansible_ssh_pass=vagrant 

@@ -1,9 +1,0 @@
----
-- hosts: all
-  gather_facts: false
-  tasks:
-    - name: execute patch retrieval
-      script: scripts/fetch_patch_info.sh
-      register: fpi_output
-    - name: Output
-      debug: var=fpi_output

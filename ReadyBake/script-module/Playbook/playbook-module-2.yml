@@ -5,4 +5,4 @@
     - name: execute patch retrieval script
       script: scripts/fetch_patch_info.sh
       register: fpi
-    - debug: var=fpi
+    - debug: var=fpi.stdout_lines
