@@ -98,13 +98,13 @@ earlier command into a yaml format:
 
 We can validate our transcription by having ansible check our syntax:
 
-`ansible-playbook -i ../hosts playbook-module.yml --syntax-check`
+`ansible-playbook -i ../hosts playbook-script.yml --syntax-check`
 
 Ansible will report any playbook syntax errors to you.
 
 Once we have our playbook in good sorts we will then execute it:
 
-`ansible-playbook -i ../hosts playbook-module.yml`
+`ansible-playbook -i ../hosts playbook-script.yml`
 
 **Hey!!! Where is my output!!**
 
@@ -210,7 +210,7 @@ We are going to execute our test at the parent level of the ansible project we j
 	
 	
 ## Writing our playbook
-Now that we have our module written we need to define our playbook.  The playbook should be define at the same level as the library directory.  
+Now that we have our module written we need to define our playbook.  The playbook should be defined at the same level as the library directory.  
 Here is our playbook:
 
     ---
@@ -452,7 +452,7 @@ Take a look at our `fetch_patch_info` module in the `$KB_HOME/ReadyBake/ansible-
 * If packaging modules in an RPM, they only need to be installed on the control machine and should be dropped into /usr/share/ansible. This is entirely optional and up to you.
 * Modules must output valid JSON only. The toplevel return type must be a hash (dictionary) although they can be nested. Lists or simple scalar values are not supported, though they can be trivially contained inside a dictionary.
 * In the event of failure, a key of ‘failed’ should be included, along with a string explanation in ‘msg’. Modules that raise tracebacks (stacktraces) are generally considered ‘poor’ modules, though Ansible can deal with these returns and will automatically convert anything unparseable into a failed result. If you are using the AnsibleModule common Python code, the ‘failed’ element will be included for you automatically when you call ‘fail_json’.
-* Return codes from modules are not actually not significant, but continue on with 0=success and non-zero=failure for reasons of future proofing.
+* Return codes from modules are actually not significant, but continue on with 0=success and non-zero=failure for reasons of future proofing.
 * As results from many hosts will be aggregated at once, modules should return only relevant output. Returning the entire contents of a log file is generally bad form.
 
 ## Submitting a Module to Ansible
