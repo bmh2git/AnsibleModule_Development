@@ -19,8 +19,11 @@ def main():
         supports_check_mode=True
     )
 
-    audit_patch_info( module )
-    module.exit_json(changed=False)
+    ret = audit_patch_info( module )
+    if ret:
+        module.exit_json(changed=False)
+    else:
+        module.fail_json(msg="Failed")
 
 from ansible.module_utils.basic import *
 if __name__ == "__main__":

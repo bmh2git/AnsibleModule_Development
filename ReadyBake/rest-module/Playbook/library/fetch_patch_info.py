@@ -8,10 +8,11 @@ def fetch_patch_info():
     try:
         f = open('/var/log/dpkg.log')
         lines = f.read()
-        l = f.readline()
-        while l != '':
-            print l
-            l = f.readline()
+        # ## Something more complicated ... such as if we were to do filters
+        # l = f.readline()
+        # while l != '':
+        #    print l
+        #    l = f.readline()
     except IOError as err:
         return False
     finally:
