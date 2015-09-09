@@ -155,11 +155,6 @@ This is much better and almost consumable at this point.
 But now let's make our script a first class action by making it a module.
 
 # Ansible Module development
-## Set up for some testing
-- `git clone https://github.com/ansible/ansible.git`
-- Set your PYTHONPATH to the `ansible/lib` directory.
-- Execute the test-module command hacking/test-module -m .../path/to/your/module/fetch_patch_info.py
-
 
 #### Note: SSHPASS on Mac
 - download the sshpass util from sourceforge: http://sourceforge.net/projects/sshpass/
@@ -205,7 +200,7 @@ Some key elements of the module implementation are:
 Once our module is complete we will save it in a local `library` subdirectory as `fetch_patch_info.py`.  There are many conventional locations to store your modules and many conventions to define a reference to them.  The easiest for our exercise here is to simply create a local `library` directory.  Ansible will see this directory and add it to the module-path it already knows about.
 
 ## Testing our module
-Ansible provides a testing tool that will help us determine if we any issues with our module implementation.  The testing tool helps to exercise the AnsibleModule utility that we are expected to use in our Modules.  Testing is an important aspect to any software development.  However, we will defer to a later time for discussing, in detail, conventions, techniques, and tools for testing and debugging your you Ansible modules and playbooks.
+Ansible provides a testing tool that will help us determine if we have any issues with our module implementation.  The testing tool helps to exercise the AnsibleModule utility that we are expected to use in our Modules.  Testing is an important aspect to any software development.  However, we will defer to a later time for a discussion regarding conventions, techniques, and tools for testing and debugging your you Ansible modules and playbooks.
 	
 ## Writing our playbook
 Now that we have our module written we need to define our playbook.  The playbook should be defined at the same level as the library directory.  
@@ -511,5 +506,10 @@ If there are no issues we will see a response such as:
 	}
 	
 If there were issues we would have seen a python trace dump.
+
+#### Quick Review : Set up for some testing
+- `git clone https://github.com/ansible/ansible.git`
+- Set your PYTHONPATH to the `ansible/lib` directory.
+- Execute the test-module command hacking/test-module -m .../path/to/your/module/fetch_patch_info.py
 
 	
