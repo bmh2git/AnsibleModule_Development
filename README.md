@@ -205,22 +205,7 @@ Some key elements of the module implementation are:
 Once our module is complete we will save it in a local `library` subdirectory as `fetch_patch_info.py`.  There are many conventional locations to store your modules and many conventions to define a reference to them.  The easiest for our exercise here is to simply create a local `library` directory.  Ansible will see this directory and add it to the module-path it already knows about.
 
 ## Testing our module
-Ansible provides a testing tool that will help us determine if we any issues with our implementation.  The testing tool helps to exercise the AnsibleModule utility that we are expected to use in our Modules.
-
-First thing we need to do is to download the Ansible project from github: `git clone https://github.com/ansible/ansible.git`
-This will create an ansible directory which in turn contains a hacking directory which has the tools we are interested in using.
-
-In particular we are interested in using the `test-module` tool to test our fetch\_patch\_info module.
-But before we can use the tool we will need to update our PYTHONPATH with the a reference to the ansbile/lib directory of the project we just cloned.
-For example:
-
-	export PYTHONPATH='/path/to/clone/ansible/lib:$PYTHONPATH'
-
-
-We are going to execute our test at the parent level of the ansible project we just cloned and below is the syntax to execute a test:
-
-	./ansible/hacking/test-module -m /path/to/our-project/Playbook/library/fetch_path_info.py
-	
+Ansible provides a testing tool that will help us determine if we any issues with our module implementation.  The testing tool helps to exercise the AnsibleModule utility that we are expected to use in our Modules.  Testing is an important aspect to any software development.  However, we will defer to a later time for discussing, in detail, conventions, techniques, and tools for testing and debugging your you Ansible modules and playbooks.
 	
 ## Writing our playbook
 Now that we have our module written we need to define our playbook.  The playbook should be defined at the same level as the library directory.  
@@ -492,3 +477,39 @@ Some tips:
 ## Dependencies
 - Vagrant
 - Ansible
+
+## Appendix : Testing Modules Using Ansible test-module
+Ansible provides a testing tool that will help us determine if we any issues with our implementation.  The testing tool helps to exercise the AnsibleModule utility that we are expected to use in our Modules.  Testing is an important aspect to any software development.  This section is intended to provide a light introduction to the Ansible test-module tool. We will defer to a later time the discussion regarding conventions, techniques, and tools for testing and debugging your you Ansible modules and playbooks.
+
+First thing we need to do is to download the Ansible project from github: `git clone https://github.com/ansible/ansible.git`
+This will create an ansible directory which in turn contains a hacking directory which has the tools we are interested in using.
+
+In particular we are interested in using the `test-module` tool to test our hello-world module.
+But before we can use the tool we will need to update our PYTHONPATH with the a reference to the ansbile/lib directory of the project we just cloned.
+For example:
+
+	export PYTHONPATH='/path/to/clone/ansible/lib:$PYTHONPATH'
+
+
+We are going to execute our test at the parent level of the ansible project we just cloned and below is the syntax to execute a test:
+
+	./ansible/hacking/test-module -m /path/to/our-project/Playbook/library/hello-world.py
+	
+If there are no issues we will see a response such as:
+	
+	* including generated source, if any, saving to: /Users/hashbang/.ansible_module_generated
+	* this may offset any line numbers in tracebacks/debuggers!
+	***********************************
+	RAW OUTPUT
+	{"msg": "Hello World", "changed": false}
+
+	***********************************
+	PARSED OUTPUT
+	{
+    "changed": false, 
+    "msg": "Hello World"
+	}
+	
+If there were issues we would have seen a python trace dump.
+
+	
