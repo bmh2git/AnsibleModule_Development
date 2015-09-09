@@ -1,6 +1,10 @@
 #!/usr/bin/python
 
-import requests
+try:
+    import requests
+    HAS_LIB=True
+except:
+    HAS_LIB=False
 
 def audit_patch_info( module ):
     _host = module.params.get('host')
@@ -18,6 +22,12 @@ def main():
         ),
         supports_check_mode=True
     )
+
+    if module.check_mode:
+        module.exit_json(msg="check mode", changed=False )
+
+    if not HAS_LIB:
+        module.fail_json(msg="Failed to import requests")
 
     ret = audit_patch_info( module )
     if ret:

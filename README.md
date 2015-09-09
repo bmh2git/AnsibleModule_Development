@@ -35,6 +35,19 @@ You should see output similar to the following:
 Now with our Sandbox system up and running let's get started with our module development.
 
 # Ansible Shell and Script Module
+## Use Case
+In order to provide some backdrop for what follows, our use case is as follows:
+
+We have been asked to collect and report the patching levels of all our systems in our datacenter.
+
+Our acceptance criteria is:
+
+- High performance - we have many systems which we need to collect patching info from.
+- We want to be able to run the command as often as we want with no side effects.
+- Our solution should support, if not provide for, filtering, ordering, and sorting of the patch level results.
+- Our solution should provide a reporting capability.
+
+
 ## Direct Command
 The simplest way to execute a custom command against your inventory of systems is to
 simply pass it as a parameter to the `script` module:
